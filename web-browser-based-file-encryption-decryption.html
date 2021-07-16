@@ -518,7 +518,11 @@
     var blob = new Blob([plaintextbytes], { type: 'application/download' });
     var blobUrl = URL.createObjectURL(blob);
     aDecsavefile.href = blobUrl;
-    aDecsavefile.download = objFile.name + '.dec';
+    if (objFile.name.match(/\.enc$/)) {
+      aDecsavefile.download = objFile.name.replace(/\.enc$/,'');
+    } else {
+      aDecsavefile.download = objFile.name + '.dec';
+    }
 
     spnDecstatus.classList.add("greenspan");
     spnDecstatus.innerHTML = '<p>File decrypted.</p>';
